@@ -245,3 +245,23 @@ Será chamado de children, para acessar usa
 ele pega o conteúdo infromado e joga na propriedade button do indexBu.js
 
 Conteúdo de fora para dentro
+
+ver index.js e indexBu.js (ou commit "update mudando cor de fundo, texto, padding ....)
+
+<b>propriedades</b>
+
+tem title, decrição, int,s tring, def, boll... na tag
+
+ver index.js e indexBu.js
+
+Observar que tive que por um div, sem ela não funciona, pesquisar motivo e se pode ser outra tag.
+
+{this.props.title} {this.props.decricao};
+
+tem apenas um espaço entre os calores
+
+{this.props.title} - {this.props.decricao};
+
+tem um espaço um traço um espaço entre valores
+
+observação, o - irá para todos os buttons, a diferência é que nos outros não tem valor adicional que tem na frente do btn Propriedade

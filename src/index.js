@@ -17,6 +17,8 @@ class App extends React.Component {
 
         <Button corTxt="#9d4edd">forma 2 texto</Button>
 
+        <Button title="Prop /" decricao="valores na tag ">Propriedade</Button>
+
       </div>
     );
   }
