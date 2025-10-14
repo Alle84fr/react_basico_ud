@@ -6,7 +6,7 @@ class Button extends Component {
 
         return (
 
-            <button>Salvar</button>
+            <button>{this.props.children}</button>
         );
     }
 }

@@ -227,3 +227,21 @@ index.js
 
 react-dom - Render, pega o componente do file, "linka" com o App do render(<App />...) e este App está conectado com o app do index.html, mais especificamente com o <div id="app"></div>. Por sinal deve ser escrita desta forma.
 No index.html o bundle irá interpeta o código e insere o conteúdo na div id="app"
+
+## Props e Children
+
+Reutilização maior do button
+
+Tirando conteúdo statático
+
+Quando passo um valor no meio da tag
+
+ex: <Button>Forma um</Button>
+
+Será chamado de children, para acessar usa
+
+{this.props.children}
+
+ele pega o conteúdo infromado e joga na propriedade button do indexBu.js
+
+Conteúdo de fora para dentro
