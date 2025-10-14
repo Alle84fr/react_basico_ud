@@ -218,3 +218,12 @@ expost com default - identifica que o que será importado é, por explo nome da 
 ao importar não tem chaves
 
 Quando tem Export tipo const, aí deve se por as {} no import
+
+## Components 2:
+
+src = pasta nível raiz
+
+index.js
+
+react-dom - Render, pega o componente do file, "linka" com o App do render(<App />...) e este App está conectado com o app do index.html, mais especificamente com o <div id="app"></div>. Por sinal deve ser escrita desta forma.
+No index.html o bundle irá interpeta o código e insere o conteúdo na div id="app"
