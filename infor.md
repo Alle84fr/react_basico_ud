@@ -208,3 +208,13 @@ Como mudei o import é o que está no file index.js
  interface força declaração na interface
 
 #### duas formas de ter button no index.js
+
+< Button>< /Button>
+< Button />
+
+#### No import
+
+expost com default - identifica que o que será importado é, por explo nome da classe
+ao importar não tem chaves
+
+Quando tem Export tipo const, aí deve se por as {} no import

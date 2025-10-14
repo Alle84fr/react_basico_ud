@@ -9,10 +9,10 @@ class App extends React.Component {
 
         <h1>Saluton React </h1>
 
-        <button>Forma um</button>
+        <Button>Forma um</Button>
 
         <Button />
-        
+
       </div>
     );
   }
