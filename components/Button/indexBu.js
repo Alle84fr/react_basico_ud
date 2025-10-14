@@ -5,8 +5,7 @@ class Button extends Component {
     render() {
 
         return (
-
-            <button>{this.props.children}</button>
+            <button style = {{backgroundColor: this.props.cor}}>{this.props.children}</button>
         );
     }
 }

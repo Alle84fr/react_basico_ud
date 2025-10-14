@@ -9,9 +9,9 @@ class App extends React.Component {
 
         <h1>Saluton React </h1>
 
-        <Button>Salvar</Button>
+        <Button cor="#0077b6">cor background</Button>
 
-        <Button>Ressuscitar</Button>
+        <Button >Ressuscitar</Button>
 
         <Button>Morrer</Button>
 
