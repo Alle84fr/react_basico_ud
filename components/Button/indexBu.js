@@ -3,14 +3,6 @@ import PropTypes from "prop-types";
 
 class Button extends Component {
 
-    static defaultProps = {
-        title: "Padrão"
-    }
-
-    static propTypes = {
-        title: PropTypes.string.isRequired
-    }
-
     render() {
 
         return (
@@ -30,6 +22,14 @@ class Button extends Component {
                 </div>
         );
     }
+}
+
+Button.defaultProps = {
+    title: "Padrão"
+}
+
+Button.propTypes = {
+    title: PropTypes.string.isRequired
 }
 
 export default Button;

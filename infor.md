@@ -282,6 +282,8 @@ aparecerá no package,json - "prop-types": "^15.8.1",
 
 ##### static defautProps(obj/dict)
 
+STATIC TRANSFORMA O MEMBRO EM UMA PROPRIEDADE DA CLASSE, ENTÃO PODE ESTAR DENTRO DA CLASSE
+
 Quando não é passado o title, deve ter comportamento padrão
 Quando passaado mantém como feito antes
 
@@ -303,3 +305,13 @@ Dentro de ambos pode adicionar a descrição e tudo que precisa, tipo:
 
 title: "Padrão",
 descricao: "Btn"
+
+ver commit update froma 1 de fazer declaração
+
+forma 2°
+
+COMO NÃO É STATIC, O REACT JÁ ACESSA O BUTTON.DEFAULTPROPS, SE DENTRO É COMO SE ACESSASSE DUAS VEZES, dando erro.
+
+DEVE POR FORA
+
+Button é uma função especial, um construtor
