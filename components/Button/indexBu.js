@@ -1,12 +1,22 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class Button extends Component {
+
+    static defaultProps = {
+        title: "Padrão"
+    }
+
+    static propTypes = {
+        title: PropTypes.string.isRequired
+    }
 
     render() {
 
         return (
             <div>
-            {this.props.title} $ {this.props.decricao};
+            {this.props.title} {this.props.decricao};
+         
 
             <button style = {{
                     backgroundColor: this.props.corBtn,

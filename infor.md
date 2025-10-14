@@ -252,7 +252,7 @@ ver index.js e indexBu.js (ou commit "update mudando cor de fundo, texto, paddin
 
 tem title, decrição, int,s tring, def, boll... na tag
 
-ver index.js e indexBu.js
+ver index.js e indexBu.js (commit update propriedade geral)
 
 Observar que tive que por um div, sem ela não funciona, pesquisar motivo e se pode ser outra tag.
 
@@ -265,3 +265,41 @@ tem apenas um espaço entre os calores
 tem um espaço um traço um espaço entre valores
 
 observação, o - irá para todos os buttons, a diferência é que nos outros não tem valor adicional que tem na frente do btn Propriedade
+
+conteúdo interno sempre Children
+
+label - propriedade, que fica fora
+
+## Default porp e prop type
+
+npm install --save prop-types
+
+obs ctrl c para de rodar
+
+aparecerá no package,json - "prop-types": "^15.8.1",
+
+- forma 1
+
+##### static defautProps(obj/dict)
+
+Quando não é passado o title, deve ter comportamento padrão
+Quando passaado mantém como feito antes
+
+resultado em tela:
+
+Padrão; btn Default
+Prop/ valor na tag; btn Propriedade
+
+##### static propTypes
+
+   
+title: PropTypes.string.isRequired
+
+Diz que o título é no formato String e é um valor  obrigatório (isRequired)
+
+Se tirar o título ou se for diferente de string dará erro 
+
+Dentro de ambos pode adicionar a descrição e tudo que precisa, tipo:
+
+title: "Padrão",
+descricao: "Btn"
