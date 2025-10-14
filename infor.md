@@ -33,7 +33,7 @@ https://medium.com/@henrique.weiand/react-ferramentas-de-padroniza%C3%A7%C3%A3o-
 
 https://medium.com/@henrique.weiand/react-obtendo-informa%C3%A7%C3%B5es-externas-plano-de-aula-xi-3a76b1a103eb
 
-### Aula 2 configuração de ambinete
+## Aula 2 configuração de ambinete
 
 - 1° criar arquivo package.json
 
@@ -186,3 +186,25 @@ dará uma url
 http://localhost:8080/
 
 o n° da porta pode mudar
+
+##  aula Componentes
+
+componentes header, img principal, tudo que está na página
+
+criar duas pastas juntas escreva o nome/outroNome - sem espaço entre eles
+
+ex: components/Button
+
+usar camel case para não ter erro
+
+ele fez index.js , com este nome o import seria import Button from '../components/Button. 
+
+Como mudei o import é o que está no file index.js
+ 
+ EXTENDS exetender ao Components
+
+ método render  ()
+
+ interface força declaração na interface
+
+#### duas formas de ter button no index.js

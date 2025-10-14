@@ -1,10 +1,19 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import Button from '../components/Button/indexBu';
 
 class App extends React.Component {
   render() {
     return (
-      <h1>Saluton React </h1>
+      <div>
+
+        <h1>Saluton React </h1>
+
+        <button>Forma um</button>
+
+        <Button />
+        
+      </div>
     );
   }
 }
