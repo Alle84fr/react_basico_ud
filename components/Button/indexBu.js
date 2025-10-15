@@ -3,6 +3,14 @@ import PropTypes from "prop-types";
 
 class Button extends Component {
 
+    state = {
+  
+  }
+
+  componentWillUnmount(){
+    console.log("componentWillUnmount")
+  }
+    
 
     render() {
 

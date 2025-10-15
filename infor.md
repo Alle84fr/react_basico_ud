@@ -373,8 +373,16 @@ contador: {this.state.contador} é apenas para mostrar na tela o valor, sem fun�
 
 quando faz extends que herda muitas coisas
 
-mounting - quando está visualizando
+mounting - quando está visualizando, sendo montado - inicialization, componentWillMount, render, componentDidMount
+
+updating, renderizando, novos valores-
+
+unmounting, retido -
 
 procurar ciclo de vida
 
 style components
+
+bnt componete simples, que não precisa de infromações e estados, só pega conteúdo e bota na propriedade button
+
+quando é algo mais elaborado usa stateful

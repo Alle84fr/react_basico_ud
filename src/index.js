@@ -4,14 +4,7 @@ import Button from '../components/Button/indexBu';
 
 class App extends React.Component {
 
-  state = {
-  
-  }
 
-  componentWillUnmount(){
-    console.log("componentWillUnmount")
-  }
-    
   render() {
     return (
       <div>
