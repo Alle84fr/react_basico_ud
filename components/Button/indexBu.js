@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 
 class Button extends Component {
 
+
     render() {
 
         return (
-            <div>
-            {this.props.title} {this.props.decricao};
-         
 
-            <button style = {{
+            <button 
+                onClick={this.props.press}
+                style = {{
                     backgroundColor: this.props.corBtn,
                     color: this.props.corTxt,
                     padding: "10px 20px",
@@ -19,17 +19,8 @@ class Button extends Component {
                     cursor: "pointer",
                     margin: "5px"
                 }}>{this.props.children}</button>
-                </div>
         );
     }
-}
-
-Button.defaultProps = {
-    title: "Padrão"
-}
-
-Button.propTypes = {
-    title: PropTypes.string.isRequired
 }
 
 export default Button;

@@ -6,16 +6,26 @@ class App extends React.Component {
 
   state = {
     contador: 0,
+    nome: " ",
   }
 
-  //função - areo function - sem retorno
+  changeText = (e) => {
+    this.setState({
+      nome: e.target.value,
+    })
+  }
   adicionar = () => {
-    alert("alerta");
+    this.setState({
+      contador: this.state.contador+2,
+    })
   }
     
   render() {
     return (
       <div>
+
+        <input onChange={this.changeText} />
+        nome: {this.state.nome} <br />
 
         contador: {this.state.contador}
 

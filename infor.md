@@ -315,3 +315,54 @@ COMO NÃO É STATIC, O REACT JÁ ACESSA O BUTTON.DEFAULTPROPS, SE DENTRO É COMO
 DEVE POR FORA
 
 Button é uma função especial, um construtor
+
+## Estado e Mutabilidade
+
+Estado - pode ser compartilhado entre componetes, reaproveitaçãao e dinamismo
+
+    state = {
+        contador: 0,
+    }
+
+este estado só tem a partir que se extende ao componente
+
+<b>declaração</b>
+
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+
+class Button extends Component
+
+<b>ou</b>>
+
+import React from "react";
+import PropTypes from "prop-types";
+
+class Button extends React.Component
+
+ função - areo function - sem retorno
+    adiconar = () => {
+        
+    }
+
+press={this.adicionar} 
+
+adicionar apenas - faz entrar
+
+adiconar () - tem ume escolpo de execução
+
+manutenção do contador
+
+contador: {this.state.contador} é apenas para mostrar na tela o valor, sem função maior que esta
+
+  adicionar = () => {
+    this.setState({
+      contador: this.state.contador++,
+    })
+  }
+
+  é imutável, não dá para adiocionar índices
+
+  O state chama o render a cada execução
+
+  O render é obrigatório, é interface extendida, quando usar extends
