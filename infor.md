@@ -389,3 +389,42 @@ quando é algo mais elaborado usa stateful
 
 Stateful - declara como função aerfunton (ver nome correto)
 ex: todo contador
+
+## Create-react-app
+
+Para console
+
+``` Ctrl C```
+
+voltar uma pasta
+
+```cd .. ```
+
+criar um novo projeto
+
+```npx create-react-app nomePasta```
+
+Need to install the following packages:
+create-react-app@5.1.0
+Ok to proceed? (y) <b>y</b>
+
+Inside that directory, you can run several commands:
+
+  npm start
+    Starts the development server.
+
+  npm run build
+    Bundles the app into static files for production.
+
+  npm test
+    Starts the test runner.
+
+  npm run eject
+    Removes this tool and copies build dependencies, configuration files
+    and scripts into the app directory. If you do this, you can’t go back!
+
+We suggest that you begin by typing:
+
+```cd react_bas_ud_2
+  npm start
+```
