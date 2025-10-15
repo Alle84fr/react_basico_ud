@@ -386,3 +386,6 @@ style components
 bnt componete simples, que não precisa de infromações e estados, só pega conteúdo e bota na propriedade button
 
 quando é algo mais elaborado usa stateful
+
+Stateful - declara como função aerfunton (ver nome correto)
+ex: todo contador
