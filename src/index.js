@@ -5,19 +5,11 @@ import Button from '../components/Button/indexBu';
 class App extends React.Component {
 
   state = {
-    contador: 0,
-    nome: " ",
+  
   }
 
-  changeText = (e) => {
-    this.setState({
-      nome: e.target.value,
-    })
-  }
-  adicionar = () => {
-    this.setState({
-      contador: this.state.contador+2,
-    })
+  componentWillUnmount(){
+    console.log("componentWillUnmount")
   }
     
   render() {

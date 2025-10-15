@@ -366,3 +366,15 @@ contador: {this.state.contador} é apenas para mostrar na tela o valor, sem fun�
   O state chama o render a cada execução
 
   O render é obrigatório, é interface extendida, quando usar extends
+
+## Stateful e Stateles
+
+### stateful
+
+quando faz extends que herda muitas coisas
+
+mounting - quando está visualizando
+
+procurar ciclo de vida
+
+style components
