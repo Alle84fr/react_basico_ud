@@ -1,22 +1,33 @@
+// carrega autoaticamente o arquivo .env
 import "dotenv/config";
+// cria servidores HTTP em node.js - rotas get e post e api rest
 import express from "express";
 import sql from "mssql";
+// cross origin resource sharing - front rode outro domínio ou porta
 import cors from "cors";
+// enviar e-mail via smtp - para enviar otp (one time password)
 import nodemailer from "nodemailer";
+// gera hash do otp , criptografa
 import crypto from "crypto";
+// cria salta, hash seguro da senha
 import bcrypt from "bcryptjs";
 
 const app = express();
 
+// porta do .ev ou 4000
 const PORT = Number(process.env.PORT || 4000);
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
+// tempo para validade de otp
 const OTP_TTL_MINUTOS = 10;
 const SALT_ROUNDS = 10;
 
 app.use(cors({ origin: FRONTEND_ORIGIN }));
+// recebe json no corpo da requisição
 app.use(express.json());
 
+// lê servidor bd
 const rawDbServer = String(process.env.DB_SERVER || "").trim();
+// v^se tem instância nomeada sql
 const temInstanciaNomeada = rawDbServer.includes("\\");
 const [dbHost, dbInstanceName] = rawDbServer.split("\\");
 
@@ -33,10 +44,14 @@ const dbConfig = {
   ...(temInstanciaNomeada ? {} : { port: Number(process.env.DB_PORT || 1433) }),
 };
 
+// guarda conexão ativa no banco
 let poolPromise;
 
 //_______ conexão com bd
+
+// obter conexão
 const getPool = async () => {
+  // se não existe conexão, cria uma
   if (!poolPromise) {
     poolPromise = sql.connect(dbConfig);
   }
@@ -44,7 +59,10 @@ const getPool = async () => {
 };
 
 // ___________ regra de e-mail 
+
+
 const transporter = nodemailer.createTransport({
+  // transportador stmp
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT || 587),
   secure: process.env.SMTP_SECURE === "true",
@@ -54,6 +72,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// formato válido
 const emailValido = (valor) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
 const smtpConfigurado = () =>
   Boolean(
@@ -74,11 +93,15 @@ const dbConfigurado = () =>
 
 // gera valor de 6 dígitos
 const gerarOtp = () => String(Math.floor(100000 + Math.random() * 900000));
-//senha temporária hash pega o valor e transforma em hexagonal
+//senha temporária hash pega o valor e transforma em hexagonal - base de 16 n°s, de 0 a 9 e letras de a a F
+//.update() ->  atualiza do dado apara o algoritmo
 const hashOtp = (valor) =>
+  // .digest("hex" -> retorna formato hexadecimal - )
   crypto.createHash("sha256").update(String(valor).trim()).digest("hex");
 
+// vê se a rota está ativa
 app.get("/api/health", (_req, res) => {
+  // res - resposta no formato json
   res.json({ ok: true });
 });
 
@@ -113,7 +136,9 @@ app.post("/api/cadastro", async (req, res) => {
 
   try {
     const pool = await getPool();
+    // lembrando .trim() tira espaço, email não teme espaço
     const emailNormalizado = String(email).trim().toLowerCase();
+    // rouond -quantidade de vezes que irá rodar o processo de senha - quanto mais vezes mais verifica, porém demora mais
     const senhaHash = await bcrypt.hash(String(senha), SALT_ROUNDS);
 
     const consultaUsuario = await pool
@@ -344,6 +369,8 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
+// executar requisição
 app.listen(PORT, () => {
+  // executar ao iniciar o servidor
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
