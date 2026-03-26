@@ -1,0 +1,267 @@
+.cad_screen {
+  min-height: 100vh;
+  padding: 24px;
+  position: relative;
+  background:
+    radial-gradient(circle at top left, rgba(247, 249, 242, 0.95), transparent 32%),
+    linear-gradient(180deg, #f4f7ef 0%, #eef2ea 100%);
+}
+
+.cad_frame {
+  width: min(100%, 340px);
+  margin: 0 auto;
+  display: grid;
+  justify-items: end;
+}
+
+.cad_top_image {
+  width: min(100%, 120px);
+  margin: 0 11px -36px 0;
+  object-fit: contain;
+  transform: translateX(0) translateY(0) rotate(210deg);
+  transform-origin: center;
+  filter: drop-shadow(0 8px 14px rgba(17, 81, 229, 0.18));
+}
+
+.cad_card {
+  width: 100%;
+  display: grid;
+  gap: 12px;
+  padding: 36px 28px 20px;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 30px;
+  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.28);
+}
+
+.cad_field {
+  display: grid;
+  gap: 8px;
+  color: #2f3a30;
+  font-size: 1rem;
+}
+
+.cad_field_overlay {
+  position: relative;
+  min-height: 52px;
+  align-content: end;
+}
+
+.cad_field_label {
+  position: absolute;
+  left: 0;
+  bottom: 15px;
+  font-size: 0.98rem;
+  color: #2f3a30;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+
+.cad_field_label_hidden {
+  opacity: 0;
+}
+
+.cad_field input,
+.cad_field select {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #1f2937;
+  padding: 4px 72px 2px 0;
+  background: transparent;
+  color: #111827;
+  position: relative;
+  z-index: 1;
+}
+
+.cad_field select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #1f2937 50%),
+    linear-gradient(135deg, #1f2937 50%, transparent 50%);
+  background-position: calc(100% - 14px) calc(50% + 1px), calc(100% - 8px) calc(50% + 1px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 28px;
+}
+
+.cad_select_empty {
+  color: transparent;
+}
+
+.cad_field input::placeholder {
+  color: transparent;
+}
+
+.cad_field input:focus,
+.cad_field select:focus {
+  outline: none;
+  border-bottom-color: #137333;
+}
+
+.cad_inline_error {
+  margin: -2px 0 0;
+  color: #c62828;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.cad_link_button,
+.cad_text_link {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #10763a;
+  font-size: 1.05rem;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cad_toggle_button {
+  position: absolute;
+  right: 0;
+  bottom: 7px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #374151;
+  font-size: 0.78rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.cad_hash_inline_field {
+  min-height: 50px;
+  margin-top: 2px;
+}
+
+.cad_hash_inline_field .cad_field_label {
+  max-width: none;
+  line-height: 1;
+  font-size: 0.86rem;
+}
+
+.cad_action_columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(108px, 1fr);
+  column-gap: 24px;
+  align-items: start;
+  margin-top: 2px;
+}
+
+.cad_hash_block {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.cad_hash_send_row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cad_send_button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #10763a;
+  font-size: 1.02rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cad_send_button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.cad_resend_button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #10763a;
+  font-size: 0.82rem;
+  text-align: right;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cad_resend_button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.cad_hash_resend_row {
+  margin-top: 2px;
+}
+
+.cad_hash_close_hint {
+  display: none;
+}
+
+.cad_bottom_links {
+  display: grid;
+  gap: 26px;
+}
+
+.cad_link_button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.cad_popup_backdrop {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  width: min(100% - 64px, 310px);
+  min-height: 120px;
+  transform: translateX(-30%);
+  display: grid;
+  place-items: center;
+  padding: 14px 16px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.46)),
+    url("../imgs/popup.jpg") center / cover no-repeat;
+  z-index: 20;
+}
+
+.cad_popup {
+  width: 100%;
+  min-height: 90px;
+  padding: 28px 24px;
+  border-radius: 0;
+  background: rgba(241, 242, 243, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.14);
+  backdrop-filter: blur(4px);
+  text-align: center;
+}
+
+.cad_popup p {
+  margin: 0;
+  color: #ff5a3c;
+  line-height: 1.5;
+}
+
+.cad_popup_title {
+  color: #1f2937 !important;
+  font-weight: 700;
+}
+
+@media (max-width: 420px) {
+  .cad_screen {
+    padding: 16px;
+  }
+
+  .cad_popup_backdrop {
+    top: 50px;
+    width: min(100% - 32px, 280px);
+  }
+
+  .cad_card {
+    padding: 32px 22px 18px;
+  }
+
+  .cad_action_columns {
+    column-gap: 18px;
+  }
+}
