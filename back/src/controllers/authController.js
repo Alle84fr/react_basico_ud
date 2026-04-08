@@ -15,7 +15,7 @@ export function health(_req, res) {
 
 export async function cadastro(req, res) {
   const { nome, email, cargo, fazenda, senha } = req.body || {};
-  const erroValidacao = validarCadastroEntrada({ nome, email, cargo, fazenda, senha });
+  const erroValidacao = validarCadastroEntrada({ email, cargo, fazenda, senha });
 
   if (erroValidacao) {
     return res.status(400).json({ mensagem: erroValidacao });
@@ -50,7 +50,7 @@ export async function confirmarCadastro(req, res) {
   const { email, otp } = req.body || {};
 
   if (!email || !otp) {
-    return res.status(400).json({ mensagem: "E-mail e OTP sao obrigatorios" });
+    return res.status(400).json({ mensagem: "E-mail e codigo de confirmacao sao obrigatorios" });
   }
 
   if (!dbConfigurado()) {
@@ -62,7 +62,7 @@ export async function confirmarCadastro(req, res) {
     return res.status(resultado.status).json(resultado.body);
   } catch (erro) {
     return res.status(500).json({
-      mensagem: "Falha ao confirmar OTP",
+      mensagem: "Falha ao confirmar codigo",
       detalhe: erro?.message || "Erro desconhecido",
     });
   }
@@ -91,7 +91,7 @@ export async function reenviarSenhaHash(req, res) {
     return res.status(resultado.status).json(resultado.body);
   } catch (erro) {
     return res.status(500).json({
-      mensagem: "Falha ao reenviar codigo OTP",
+      mensagem: "Falha ao reenviar codigo",
       detalhe: erro?.message || "Erro desconhecido",
     });
   }

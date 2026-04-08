@@ -23,13 +23,13 @@ export default function PgHome() {
         <h1 className="home_title">{nomeUsuario}</h1>
 
         <nav className="home_menu">
-          <Link className="home_menu_link" to="/adicionar-funcionario">
+          <Link className="home_menu_link" to="/adicionar-funcionario" state={{ usuario: location.state?.usuario }}>
             Adicionar funcionario
           </Link>
           <Link className="home_menu_link" to="/adicionar-animal">
             Adicionar animal
           </Link>
-          <Link className="home_menu_link" to="/lista-funcionarios">
+          <Link className="home_menu_link" to="/lista-funcionarios" state={{ usuario: location.state?.usuario }}>
             Lista funcionarios
           </Link>
           <Link className="home_menu_link" to="/lista-animal">

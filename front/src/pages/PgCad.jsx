@@ -1,27 +1,22 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import imagemTopo from "../imgs/4_cima_cad.png";
+import AppPopup from "../components/AppPopup";
+import imagemDetalhe from "../imgs/4_cima_cad.png";
+import iconeSenhaMostrar from "../imgs/senha_mostrar.png";
+import iconeSenhaOculta from "../imgs/senha_oculta.png";
 import "./pgCad.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
 const estadoInicial = {
-  nome: "",
   email: "",
-  cargo: "",
   fazenda: "",
+  cargo: "",
   senha: "",
-  otp: "",
 };
 
-function mapearErro(status, mensagem, detalhe) {
-  const sufixoDetalhe = detalhe ? `\n${detalhe}` : "";
-
-  if (status === 404) return `404 - Pagina nao encontrada${sufixoDetalhe}`;
-  if (status === 400) return `${mensagem || "Todos campos devem ser preenchidos"}${sufixoDetalhe}`;
-  if (status === 409) return `E-mail ja cadastrado${sufixoDetalhe}`;
-  if (status === 500) return `${mensagem || "500 - Erro interno"}${sufixoDetalhe}`;
-  return `${mensagem || "Nao foi possivel concluir a operacao"}${sufixoDetalhe}`;
+function emailValido(valor) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
 }
 
 function senhaValida(valor) {
@@ -30,36 +25,49 @@ function senhaValida(valor) {
   return temMaiuscula && numeros.length >= 5;
 }
 
+function mapearErro(status, mensagem, detalhe) {
+  const sufixoDetalhe = detalhe ? `\n${detalhe}` : "";
+
+  if (status === 400) return `${mensagem || "Confira os dados informados"}${sufixoDetalhe}`;
+  if (status === 403) return `${mensagem || "Cadastro ainda nao confirmado"}${sufixoDetalhe}`;
+  if (status === 404) return `${mensagem || "404 - Pagina nao encontrada"}${sufixoDetalhe}`;
+  if (status === 409) return `E-mail ja cadastrado${sufixoDetalhe}`;
+  if (status === 500) return `${mensagem || "500 - Erro interno"}${sufixoDetalhe}`;
+  return `${mensagem || "Nao foi possivel concluir a operacao"}${sufixoDetalhe}`;
+}
+
 export default function PgCad() {
   const navigate = useNavigate();
   const [form, setForm] = useState(estadoInicial);
+  const [codigo, setCodigo] = useState("");
   const [popup, setPopup] = useState("");
+  const [popupCodigoAberto, setPopupCodigoAberto] = useState(false);
   const [enviandoCadastro, setEnviandoCadastro] = useState(false);
-  const [enviandoOtp, setEnviandoOtp] = useState(false);
-  const [campoAtivo, setCampoAtivo] = useState("");
+  const [enviandoCodigo, setEnviandoCodigo] = useState(false);
+  const [reenviandoCodigo, setReenviandoCodigo] = useState(false);
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
   function atualizarCampo(event) {
     const { name, value } = event.target;
-
     setForm((atual) => ({
       ...atual,
       [name]: name === "email" ? value.trim().toLowerCase() : value,
     }));
   }
 
-  function abrirPopup(mensagem) {
-    setPopup(mensagem);
-  }
-
   function validarCadastro() {
-    if (!form.nome || !form.email || !form.cargo || !form.fazenda || !form.senha) {
-      abrirPopup("Todos campos devem ser preenchidos");
+    if (!form.email || !form.senha || !form.fazenda || !form.cargo) {
+      setPopup("Todos os campos devem ser preenchidos.");
+      return false;
+    }
+
+    if (!emailValido(form.email)) {
+      setPopup("Digite um e-mail valido.");
       return false;
     }
 
     if (!senhaValida(form.senha)) {
-      abrirPopup("Senha deve conter ao menos uma letra maiuscula e ao menos 5 numeros");
+      setPopup("Senha deve conter ao menos uma letra maiuscula e ao menos 5 numeros.");
       return false;
     }
 
@@ -78,9 +86,8 @@ export default function PgCad() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          nome: form.nome.trim(),
           email: form.email,
-          cargo: form.cargo.trim(),
+          cargo: form.cargo,
           fazenda: form.fazenda.trim(),
           senha: form.senha,
         }),
@@ -89,30 +96,26 @@ export default function PgCad() {
       const dados = await resposta.json().catch(() => ({}));
 
       if (!resposta.ok) {
-        if (resposta.status === 409) {
-          abrirPopup("E-mail ja cadastrado.");
-          return;
-        }
-
-        abrirPopup(mapearErro(resposta.status, dados?.mensagem, dados?.detalhe));
+        setPopup(mapearErro(resposta.status, dados?.mensagem, dados?.detalhe));
         return;
       }
 
-      abrirPopup("Cadastro realizado.Verificar se recebeu senha de confrimação de e-mail .");
+      setCodigo("");
+      setPopupCodigoAberto(true);
     } catch (_erro) {
-      abrirPopup("500 - Erro interno");
+      setPopup("500 - Erro interno");
     } finally {
       setEnviandoCadastro(false);
     }
   }
 
-  async function confirmarOtp() {
-    if (!form.otp) {
-      abrirPopup("Informe senha enviada para seu e-mail");
+  async function confirmarCodigo() {
+    if (!codigo) {
+      setPopup("Digite o codigo de confirmacao enviado para o e-mail.");
       return;
     }
 
-    setEnviandoOtp(true);
+    setEnviandoCodigo(true);
 
     try {
       const resposta = await fetch(`${API_URL}/api/confirmar-otp`, {
@@ -122,35 +125,37 @@ export default function PgCad() {
         },
         body: JSON.stringify({
           email: form.email,
-          otp: form.otp,
+          otp: codigo,
         }),
       });
 
       const dados = await resposta.json().catch(() => ({}));
 
       if (!resposta.ok) {
-        abrirPopup(mapearErro(resposta.status, dados?.mensagem, dados?.detalhe));
+        setPopup(mapearErro(resposta.status, dados?.mensagem, dados?.detalhe));
         return;
       }
 
+      setPopupCodigoAberto(false);
+      setForm(estadoInicial);
       navigate("/logar", {
         replace: true,
-        state: { cadastroConfirmado: true },
+        state: { cadastroConfirmado: true, emailPreenchido: form.email },
       });
     } catch (_erro) {
-      abrirPopup("500 - Erro interno");
+      setPopup("500 - Erro interno");
     } finally {
-      setEnviandoOtp(false);
+      setEnviandoCodigo(false);
     }
   }
 
-  async function reenviarOtp() {
+  async function reenviarCodigo() {
     if (!form.email) {
-      abrirPopup("Informe o e-mail para reenviar de senha");
+      setPopup("Informe o e-mail para reenviar o codigo.");
       return;
     }
 
-    setEnviandoOtp(true);
+    setReenviandoCodigo(true);
 
     try {
       const resposta = await fetch(`${API_URL}/api/reenviar-otp`, {
@@ -158,214 +163,132 @@ export default function PgCad() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email: form.email,
-        }),
+        body: JSON.stringify({ email: form.email }),
       });
 
       const dados = await resposta.json().catch(() => ({}));
 
       if (!resposta.ok) {
-        abrirPopup(mapearErro(resposta.status, dados?.mensagem, dados?.detalhe));
+        setPopup(mapearErro(resposta.status, dados?.mensagem, dados?.detalhe));
         return;
       }
 
-      abrirPopup("Senha reenviado por e-mail.");
+      setPopup("Codigo reenviado por e-mail.");
     } catch (_erro) {
-      abrirPopup("500 - Erro interno");
+      setPopup("500 - Erro interno");
     } finally {
-      setEnviandoOtp(false);
+      setReenviandoCodigo(false);
     }
   }
 
   return (
     <>
-      <main className="cad_screen">
-        <section className="cad_frame">
-          <img className="cad_top_image" src={imagemTopo} alt="Ilustracao de cadastro" />
+      <main className="app_tela cad_tela">
+        <section className="app_moldura cad_moldura">
+          <section className="cad_cls">
+            <h1 className="cad_titulo">Cadastro</h1>
 
-          <div className="cad_card">
-            <label className="cad_field cad_field_overlay">
-              <span
-                className={`cad_field_label ${
-                  campoAtivo === "nome" || form.nome ? "cad_field_label_hidden" : ""
-                }`}
-              >
-                Nome:
-              </span>
-              <input
-                name="nome"
-                type="text"
-                value={form.nome}
-                onChange={atualizarCampo}
-                onFocus={() => setCampoAtivo("nome")}
-                onBlur={() => setCampoAtivo("")}
-                autoComplete="off"
-              />
-            </label>
+            <section className="cad_card_box">
+              <img className="cad_img" src={imagemDetalhe} alt="Ilustracao decorativa da tela de cadastro" />
 
-            <label className="cad_field cad_field_overlay">
-              <span
-                className={`cad_field_label ${
-                  campoAtivo === "email" || form.email ? "cad_field_label_hidden" : ""
-                }`}
-              >
-                E-mail:
-              </span>
-              <input
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={atualizarCampo}
-                onFocus={() => setCampoAtivo("email")}
-                onBlur={() => setCampoAtivo("")}
-                autoComplete="off"
-              />
-            </label>
-
-            <label className="cad_field cad_field_overlay">
-              <span
-                className={`cad_field_label ${
-                  campoAtivo === "cargo" || form.cargo ? "cad_field_label_hidden" : ""
-                }`}
-              >
-                Cargo:
-              </span>
-              <select
-                name="cargo"
-                value={form.cargo}
-                onChange={atualizarCampo}
-                onFocus={() => setCampoAtivo("cargo")}
-                onBlur={() => setCampoAtivo("")}
-                className={!form.cargo ? "cad_select_empty" : ""}
-              >
-                <option value=""></option>
-                <option value="dono">Dono</option>
-                <option value="funcionario">Funcionario</option>
-                <option value="gerente">Gerente</option>
-              </select>
-            </label>
-
-            <label className="cad_field cad_field_overlay">
-              <span
-                className={`cad_field_label ${
-                  campoAtivo === "fazenda" || form.fazenda ? "cad_field_label_hidden" : ""
-                }`}
-              >
-                Fazenda:
-              </span>
-              <input
-                name="fazenda"
-                type="text"
-                value={form.fazenda}
-                onChange={atualizarCampo}
-                onFocus={() => setCampoAtivo("fazenda")}
-                onBlur={() => setCampoAtivo("")}
-                autoComplete="off"
-              />
-            </label>
-
-            <label className="cad_field cad_field_overlay">
-              <span
-                className={`cad_field_label ${
-                  campoAtivo === "senha" || form.senha ? "cad_field_label_hidden" : ""
-                }`}
-              >
-                Senha:
-              </span>
-              <input
-                name="senha"
-                type={mostrarSenha ? "text" : "password"}
-                value={form.senha}
-                onChange={atualizarCampo}
-                onFocus={() => setCampoAtivo("senha")}
-                onBlur={() => setCampoAtivo("")}
-                autoComplete="new-password"
-              />
-              <button
-                type="button"
-                className="cad_toggle_button"
-                onClick={() => setMostrarSenha((atual) => !atual)}
-              >
-                {mostrarSenha ? "Ocultar senha" : "Ver senha"}
-              </button>
-            </label>
-
-            <div className="cad_action_columns">
-              <div className="cad_bottom_links">
-                <button type="button" className="cad_link_button" onClick={cadastrar} disabled={enviandoCadastro}>
-                  {enviandoCadastro ? "Cadastrando..." : "Cadastrar"}
-                </button>
-
-                <Link className="cad_text_link" to="/inicial">
-                  Voltar
-                </Link>
-
-                <Link className="cad_text_link" to="/logar">
-                  Logar
-                </Link>
-              </div>
-
-              <div className="cad_hash_block">
-                <label className="cad_field cad_field_overlay cad_hash_inline_field">
-                  <span
-                    className={`cad_field_label ${
-                      campoAtivo === "otp" || form.otp ? "cad_field_label_hidden" : ""
-                    }`}
-                  >
-                    Inserir codigo OTP
-                  </span>
+              <section className="cad_card">
+                <label className="cad_campo">
+                  <span className="cad_label">E-mail:</span>
                   <input
-                    name="otp"
-                    type="text"
-                    value={form.otp}
+                    className="cad_input"
+                    name="email"
+                    type="email"
+                    value={form.email}
                     onChange={atualizarCampo}
-                    onFocus={() => setCampoAtivo("otp")}
-                    onBlur={() => setCampoAtivo("")}
+                    autoComplete="email"
+                  />
+                </label>
+
+                <label className="cad_campo">
+                  <span className="cad_label">Senha:</span>
+                  <span className="cad_senha_box">
+                    <input
+                      className="cad_input cad_input_senha"
+                      name="senha"
+                      type={mostrarSenha ? "text" : "password"}
+                      value={form.senha}
+                      onChange={atualizarCampo}
+                      autoComplete="new-password"
+                    />
+                    <button
+                      type="button"
+                      className="cad_senha_btn"
+                      onClick={() => setMostrarSenha((atual) => !atual)}
+                      aria-label={mostrarSenha ? "Ocultar senha" : "Mostrar senha"}
+                    >
+                      <img
+                        src={mostrarSenha ? iconeSenhaMostrar : iconeSenhaOculta}
+                        alt=""
+                        aria-hidden="true"
+                      />
+                    </button>
+                  </span>
+                </label>
+
+                <label className="cad_campo">
+                  <span className="cad_label">Fazenda</span>
+                  <input
+                    className="cad_input"
+                    name="fazenda"
+                    type="text"
+                    value={form.fazenda}
+                    onChange={atualizarCampo}
                     autoComplete="off"
                   />
                 </label>
 
-                <div className="cad_hash_send_row">
-                  <button
-                    type="button"
-                    className="cad_send_button"
-                    onClick={confirmarOtp}
-                    disabled={enviandoOtp || !form.email || !form.otp}
-                  >
-                    {enviandoOtp ? "Enviando..." : "Enviar"}
-                  </button>
-                </div>
+                <label className="cad_campo">
+                  <span className="cad_label">Cargo</span>
+                  <select className="cad_input cad_select" name="cargo" value={form.cargo} onChange={atualizarCampo}>
+                    <option value=""></option>
+                    <option value="dono">Dono</option>
+                    <option value="gerente">Gerente</option>
+                  </select>
+                </label>
+              </section>
+            </section>
 
-                <div className="cad_hash_send_row cad_hash_resend_row">
-                  <button
-                    type="button"
-                    className="cad_resend_button"
-                    onClick={reenviarOtp}
-                    disabled={enviandoOtp || !form.email}
-                  >
-                    Reenviar codigo OTP
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+            <button type="button" className="cad_btn cad_btn_principal" onClick={cadastrar} disabled={enviandoCadastro}>
+              {enviandoCadastro ? "Cadastrando..." : "Cadastrar"}
+            </button>
+
+            <Link className="cad_btn cad_btn_secundario" to="/inicial">
+              Voltar
+            </Link>
+          </section>
         </section>
       </main>
 
-      {popup && (
-        <div className="cad_popup_backdrop" role="presentation" onClick={() => setPopup("")}>
-          <div
-            className="cad_popup"
-            role="alertdialog"
-            aria-modal="true"
-            aria-live="assertive"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <p>{popup}</p>
+      <AppPopup aberto={Boolean(popup)} mensagem={popup} onFechar={() => setPopup("")} />
+
+      <AppPopup aberto={popupCodigoAberto} onFechar={() => setPopupCodigoAberto(false)}>
+        <div className="cad_popup_corpo">
+          <p className="cad_popup_texto">Cadastro realizado. Digite o codigo enviado para o e-mail.</p>
+
+          <input
+            className={`cad_popup_input ${codigo ? "cad_popup_input_preenchido" : ""}`}
+            type="text"
+            value={codigo}
+            onChange={(event) => setCodigo(event.target.value.replace(/\D/g, "").slice(0, 6))}
+            placeholder="Codigo de confirmacao"
+            autoComplete="one-time-code"
+          />
+
+          <div className="cad_popup_acoes">
+            <button type="button" className="cad_popup_btn_principal" onClick={confirmarCodigo} disabled={enviandoCodigo}>
+              {enviandoCodigo ? "Confirmando..." : "Confirmar"}
+            </button>
+            <button type="button" className="cad_popup_btn_link" onClick={reenviarCodigo} disabled={reenviandoCodigo}>
+              {reenviandoCodigo ? "Reenviando..." : "Reenviar codigo"}
+            </button>
           </div>
         </div>
-      )}
+      </AppPopup>
     </>
   );
 }

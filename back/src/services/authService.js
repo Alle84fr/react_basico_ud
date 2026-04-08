@@ -4,8 +4,26 @@ import { env } from "../config/env.js";
 import { getPool, sql } from "../config/db.js";
 import { enviarOtpPorEmail, enviarRecuperacaoSenhaPorEmail } from "./mailService.js";
 
+function texto(valor) {
+  return String(valor || "").trim();
+}
+
 function emailValido(valor) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
+}
+
+function senhaCadastroValida(valor) {
+  const senha = String(valor || "");
+  const temMaiuscula = /[A-Z]/.test(senha);
+  const numeros = senha.match(/\d/g) || [];
+  return temMaiuscula && numeros.length >= 5;
+}
+
+function gerarNomeCadastro(email) {
+  const base = texto(email).split("@")[0] || "Usuario";
+  const nome = base.replace(/[._-]+/g, " ").replace(/\s+/g, " ").trim();
+  if (!nome) return "Usuario";
+  return nome.charAt(0).toUpperCase() + nome.slice(1);
 }
 
 function gerarOtp() {
@@ -30,7 +48,7 @@ function assinarToken(payloadBase64) {
 
 function criarTokenRecuperacao(email) {
   const payload = {
-    email: String(email).trim().toLowerCase(),
+    email: texto(email).toLowerCase(),
     exp: Date.now() + env.resetSenhaTtlMinutos * 60 * 1000,
   };
   const payloadBase64 = base64UrlEncode(JSON.stringify(payload));
@@ -50,7 +68,7 @@ function validarTokenRecuperacao(token, email) {
   const payload = JSON.parse(base64UrlDecode(payloadBase64));
   if (payload.exp < Date.now()) return false;
 
-  return String(payload.email).trim().toLowerCase() === String(email).trim().toLowerCase();
+  return texto(payload.email).toLowerCase() === texto(email).toLowerCase();
 }
 
 async function salvarOtp({ email, otpHash }) {
@@ -76,13 +94,21 @@ async function salvarOtp({ email, otpHash }) {
     `);
 }
 
-export function validarCadastroEntrada({ nome, email, cargo, fazenda, senha }) {
-  if (!nome || !email || !cargo || !fazenda || !senha) {
-    return "Nome, e-mail, cargo, fazenda e senha sao obrigatorios";
+export function validarCadastroEntrada({ email, cargo, fazenda, senha }) {
+  if (!email || !cargo || !fazenda || !senha) {
+    return "E-mail, cargo, fazenda e senha sao obrigatorios";
   }
 
   if (!emailValido(email)) {
     return "E-mail invalido";
+  }
+
+  if (!["dono", "gerente"].includes(texto(cargo).toLowerCase())) {
+    return "Cargo invalido";
+  }
+
+  if (!senhaCadastroValida(senha)) {
+    return "Senha deve conter ao menos uma letra maiuscula e ao menos 5 numeros";
   }
 
   return null;
@@ -90,7 +116,10 @@ export function validarCadastroEntrada({ nome, email, cargo, fazenda, senha }) {
 
 export async function cadastrarUsuario({ nome, email, cargo, fazenda, senha }) {
   const pool = await getPool();
-  const emailNormalizado = String(email).trim().toLowerCase();
+  const emailNormalizado = texto(email).toLowerCase();
+  const nomeFinal = texto(nome) || gerarNomeCadastro(emailNormalizado);
+  const cargoNormalizado = texto(cargo).toLowerCase();
+  const fazendaFinal = texto(fazenda);
   const senhaHash = await bcrypt.hash(String(senha), env.saltRounds);
 
   const consultaUsuario = await pool
@@ -103,16 +132,16 @@ export async function cadastrarUsuario({ nome, email, cargo, fazenda, senha }) {
     `);
 
   if (consultaUsuario.recordset.length > 0) {
-    return { status: 409, body: { mensagem: "Este e-mail ja foi cadastrado" } };
+    return { status: 409, body: { mensagem: "E-mail ja cadastrado" } };
   }
 
   await pool
     .request()
-    .input("nome", sql.NVarChar(120), String(nome).trim())
+    .input("nome", sql.NVarChar(120), nomeFinal)
     .input("email", sql.NVarChar(255), emailNormalizado)
     .input("senha_hash", sql.NVarChar(255), senhaHash)
-    .input("cargo", sql.NVarChar(80), String(cargo).trim())
-    .input("fazenda", sql.NVarChar(120), String(fazenda).trim())
+    .input("cargo", sql.NVarChar(80), cargoNormalizado)
+    .input("fazenda", sql.NVarChar(120), fazendaFinal)
     .query(`
       INSERT INTO dbo.usuarios (nome, email, senha_hash, cargo, fazenda, email_confirmado)
       VALUES (@nome, @email, @senha_hash, @cargo, @fazenda, 0)
@@ -123,18 +152,18 @@ export async function cadastrarUsuario({ nome, email, cargo, fazenda, senha }) {
   await salvarOtp({ email: emailNormalizado, otpHash });
 
   await enviarOtpPorEmail({
-    nome,
+    nome: nomeFinal,
     email: emailNormalizado,
     otp,
     validadeMinutos: env.otpTtlMinutos,
   });
 
-  return { status: 200, body: { mensagem: "OTP enviado por e-mail" } };
+  return { status: 200, body: { mensagem: "Cadastro realizado. Verifique o codigo enviado por e-mail" } };
 }
 
 export async function reenviarOtpCadastro({ email }) {
   const pool = await getPool();
-  const emailNormalizado = String(email).trim().toLowerCase();
+  const emailNormalizado = texto(email).toLowerCase();
 
   const resultado = await pool
     .request()
@@ -165,12 +194,12 @@ export async function reenviarOtpCadastro({ email }) {
     validadeMinutos: env.otpTtlMinutos,
   });
 
-  return { status: 200, body: { mensagem: "Codigo OTP reenviado por e-mail" } };
+  return { status: 200, body: { mensagem: "Codigo reenviado por e-mail" } };
 }
 
 export async function confirmarOtp({ email, otp }) {
   const pool = await getPool();
-  const emailNormalizado = String(email).trim().toLowerCase();
+  const emailNormalizado = texto(email).toLowerCase();
   const otpHash = hashOtp(otp);
 
   const resultadoOtp = await pool
@@ -185,7 +214,7 @@ export async function confirmarOtp({ email, otp }) {
 
   const registro = resultadoOtp.recordset[0];
   if (!registro || registro.usado) {
-    return { status: 400, body: { mensagem: "OTP nao encontrado para este e-mail" } };
+    return { status: 400, body: { mensagem: "Codigo de confirmacao nao encontrado para este e-mail" } };
   }
 
   if (new Date(registro.expira_em).getTime() < Date.now()) {
@@ -198,7 +227,7 @@ export async function confirmarOtp({ email, otp }) {
         WHERE id = @id
       `);
 
-    return { status: 400, body: { mensagem: "OTP expirado. Faca um novo cadastro" } };
+    return { status: 400, body: { mensagem: "Codigo expirado. Solicite um novo envio" } };
   }
 
   if (registro.codigo_hash !== otpHash) {
@@ -211,7 +240,7 @@ export async function confirmarOtp({ email, otp }) {
         WHERE id = @id
       `);
 
-    return { status: 400, body: { mensagem: "OTP invalido" } };
+    return { status: 400, body: { mensagem: "Codigo de confirmacao invalido" } };
   }
 
   await pool
@@ -237,7 +266,7 @@ export async function confirmarOtp({ email, otp }) {
 
 export async function login({ email, senha }) {
   const pool = await getPool();
-  const emailInformado = String(email).trim().toLowerCase();
+  const emailInformado = texto(email).toLowerCase();
 
   const resultado = await pool
     .request()
@@ -279,7 +308,7 @@ export async function login({ email, senha }) {
 
 export async function solicitarRecuperacaoSenha({ email }) {
   const pool = await getPool();
-  const emailInformado = String(email).trim().toLowerCase();
+  const emailInformado = texto(email).toLowerCase();
 
   const resultado = await pool
     .request()
@@ -314,8 +343,12 @@ export async function redefinirSenha({ email, token, novaSenha }) {
     return { status: 400, body: { mensagem: "Link de redefinicao invalido ou expirado" } };
   }
 
+  if (!senhaCadastroValida(novaSenha)) {
+    return { status: 400, body: { mensagem: "Senha deve conter ao menos uma letra maiuscula e ao menos 5 numeros" } };
+  }
+
   const pool = await getPool();
-  const emailInformado = String(email).trim().toLowerCase();
+  const emailInformado = texto(email).toLowerCase();
 
   const resultado = await pool
     .request()

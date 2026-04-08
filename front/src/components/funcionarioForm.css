@@ -1,0 +1,172 @@
+.funform_screen {
+  min-height: 100vh;
+  padding: 24px 0 0;
+  background:
+    radial-gradient(circle at top left, rgba(247, 249, 242, 0.95), transparent 32%),
+    linear-gradient(180deg, #f4f7ef 0%, #eef2ea 100%);
+}
+
+.funform_frame {
+  width: min(100%, 360px);
+  min-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+}
+
+.funform_title {
+  margin: 30px 0 14px;
+  color: #c4dcc8;
+  font-size: 1.12rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.funform_card {
+  width: calc(100% - 36px);
+  display: grid;
+  gap: 12px;
+  padding: 20px 18px 22px;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 30px;
+  box-shadow: 0 12px 22px rgba(15, 23, 42, 0.12);
+}
+
+.funform_photo_box {
+  width: 112px;
+  height: 112px;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  border: 1px dashed #9ca3af;
+  border-radius: 20px;
+  background: rgba(244, 247, 239, 0.9);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.funform_photo_box input {
+  display: none;
+}
+
+.funform_photo_preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.funform_photo_hint {
+  margin: -4px 0 4px;
+  color: #374151;
+  font-size: 0.76rem;
+  text-align: center;
+}
+
+.funform_field {
+  display: grid;
+  gap: 6px;
+  color: #374151;
+  font-size: 0.92rem;
+}
+
+.funform_field input,
+.funform_field select,
+.funform_field textarea {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #1f2937;
+  padding: 5px 0 3px;
+  background: transparent;
+  color: #111827;
+  resize: none;
+  border-radius: 0;
+  box-shadow: none;
+  appearance: none;
+}
+
+.funform_field textarea {
+  min-height: 32px;
+  line-height: 1.4;
+}
+
+.funform_field input:-webkit-autofill,
+.funform_field input:-webkit-autofill:hover,
+.funform_field input:-webkit-autofill:focus,
+.funform_field select:-webkit-autofill,
+.funform_field textarea:-webkit-autofill {
+  -webkit-text-fill-color: #111827;
+  box-shadow: 0 0 0 1000px transparent inset;
+  transition: background-color 9999s ease-out 0s;
+}
+
+.funform_field_password {
+  position: relative;
+}
+
+.funform_field_password input {
+  padding-right: 76px;
+}
+
+.funform_toggle_button {
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #374151;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.funform_field input:focus,
+.funform_field select:focus,
+.funform_field textarea:focus {
+  outline: none;
+  border-bottom-color: #10763a;
+}
+
+.funform_field input:disabled,
+.funform_field select:disabled,
+.funform_field textarea:disabled {
+  color: #6b7280;
+  -webkit-text-fill-color: #6b7280;
+  opacity: 1;
+}
+
+.funform_field select {
+  background-image: linear-gradient(45deg, transparent 50%, #1f2937 50%),
+    linear-gradient(135deg, #1f2937 50%, transparent 50%);
+  background-position: calc(100% - 12px) calc(50% + 1px), calc(100% - 6px) calc(50% + 1px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 22px;
+}
+
+.funform_bottom_actions {
+  width: calc(100% - 36px);
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 18px 24px;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 28px;
+  box-shadow: 10px 12px 22px rgba(15, 23, 42, 0.24);
+}
+
+.funform_action_button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #10763a;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.funform_bottom_image {
+  width: min(100%, 360px);
+  margin-top: 20px;
+  object-fit: contain;
+}

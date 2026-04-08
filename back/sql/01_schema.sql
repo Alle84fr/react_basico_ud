@@ -50,3 +50,25 @@ GO
 
 CREATE INDEX IX_otps_expira_em ON dbo.otps(expira_em);
 GO
+
+IF OBJECT_ID('dbo.funcionarios', 'U') IS NOT NULL
+  DROP TABLE dbo.funcionarios;
+GO
+
+CREATE TABLE dbo.funcionarios (
+  id_func NVARCHAR(4) NOT NULL
+    CONSTRAINT PK_funcionarios PRIMARY KEY,
+  nome_func NVARCHAR(120) NOT NULL,
+  funcao NVARCHAR(80) NOT NULL,
+  data_admi DATE NOT NULL,
+  setor NVARCHAR(120) NULL,
+  data_aniversario DATE NULL,
+  observacao NVARCHAR(500) NULL,
+  senha_hash NVARCHAR(255) NOT NULL,
+  foto_base64 NVARCHAR(MAX) NULL,
+  criado_em DATETIME2(0) NOT NULL
+    CONSTRAINT DF_funcionarios_criado_em DEFAULT SYSUTCDATETIME(),
+  atualizado_em DATETIME2(0) NOT NULL
+    CONSTRAINT DF_funcionarios_atualizado_em DEFAULT SYSUTCDATETIME()
+);
+GO

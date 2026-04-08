@@ -1,4 +1,7 @@
+import PgAddFun from "./pages/PgAddFun";
 import { Route, Routes } from "react-router-dom";
+import PgFichaFun from "./pages/PgFichaFun";
+import PgFun from "./pages/PgFun";
 import PgCad from "./pages/PgCad";
 import PgHome from "./pages/PgHome";
 import PgIni from "./pages/PgIni";
@@ -48,13 +51,15 @@ export default function App() {
     <Routes>
       <Route path="/" element={<PgSplash />} />
       <Route path="/splash" element={<PgSplash />} />
+      <Route path="/splah" element={<PgSplash />} />
       <Route path="/inicial" element={<PgIni />} />
       <Route path="/cadastrar" element={<PgCad />} />
       <Route path="/logar" element={<PgLog />} />
       <Route path="/home" element={<PgHome />} />
-      <Route path="/adicionar-funcionario" element={<PgEmConstrucao titulo="Adicionar funcionario" />} />
+      <Route path="/adicionar-funcionario" element={<PgAddFun />} />
       <Route path="/adicionar-animal" element={<PgEmConstrucao titulo="Adicionar animal" />} />
-      <Route path="/lista-funcionarios" element={<PgEmConstrucao titulo="Lista funcionarios" />} />
+      <Route path="/lista-funcionarios" element={<PgFun />} />
+      <Route path="/ficha-funcionario/:id" element={<PgFichaFun />} />
       <Route path="/lista-animal" element={<PgEmConstrucao titulo="Lista animal" />} />
       <Route path="/deve" element={<PgEmConstrucao titulo="Deve" />} />
       <Route path="/guia-app" element={<PgEmConstrucao titulo="Guia do app" />} />

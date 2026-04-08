@@ -7,21 +7,25 @@ export default function PgIni() {
   const apiDisponivel = location.state?.apiDisponivel ?? true;
 
   return (
-    <main className="ini_screen">
-      <section className="ini_cls">
-        <img className="ini_logo" src={logoVaca} alt="Logo Ushi" />
+    <main className="app_tela ini_tela">
+      <section className="app_moldura ini_moldura">
+        <section className="ini_cls">
+          <img className="ini_logo" src={logoVaca} alt="Logo Ushi" />
 
-        <nav className="ini_card">
-          <Link className="ini_link" to="/deve">
-            Deve
-          </Link>
-          <Link className="ini_link" to="/logar">
-            Logar
-          </Link>
-          <Link className="ini_link" to="/cadastrar">
-            Cadastrar
-          </Link>
-        </nav>
+          {!apiDisponivel ? <p className="ini_aviso">Servidor indisponivel no momento.</p> : null}
+
+          <nav className="ini_acoes" aria-label="Navegacao inicial">
+            <Link className="ini_btn" to="/cadastrar">
+              Cadastrar
+            </Link>
+            <Link className="ini_btn" to="/logar">
+              Logar
+            </Link>
+            <Link className="ini_btn" to="/deve">
+              Deve
+            </Link>
+          </nav>
+        </section>
       </section>
     </main>
   );
