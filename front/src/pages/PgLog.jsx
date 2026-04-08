@@ -33,11 +33,11 @@ export default function PgLog() {
   const tokenRedefinicao = searchParams.get("token") || "";
   const deveAbrirRedefinicao = searchParams.get("redefinir") === "1";
   const [form, setForm] = useState({
-    email: location.state?.emailPreenchido || "",
+    email: "",
     senha: "",
   });
   const [popup, setPopup] = useState("");
-  const [recuperacaoEmail, setRecuperacaoEmail] = useState(location.state?.emailPreenchido || "");
+  const [recuperacaoEmail, setRecuperacaoEmail] = useState("");
   const [popupRecuperacaoAberto, setPopupRecuperacaoAberto] = useState(false);
   const [popupRedefinicaoAberto, setPopupRedefinicaoAberto] = useState(deveAbrirRedefinicao);
   const [enviando, setEnviando] = useState(false);
@@ -50,6 +50,14 @@ export default function PgLog() {
   useEffect(() => {
     setPopupRedefinicaoAberto(deveAbrirRedefinicao);
   }, [deveAbrirRedefinicao]);
+
+  useEffect(() => {
+    setForm({ email: "", senha: "" });
+    setRecuperacaoEmail("");
+    setPopup("");
+    setPopupRecuperacaoAberto(false);
+    setMostrarSenha(false);
+  }, [location.key]);
 
   function atualizarCampo(event) {
     const { name, value } = event.target;
