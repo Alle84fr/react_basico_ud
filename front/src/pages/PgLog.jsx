@@ -36,7 +36,7 @@ export default function PgLog() {
     email: location.state?.emailPreenchido || "",
     senha: "",
   });
-  const [popup, setPopup] = useState(location.state?.cadastroConfirmado ? "Cadastro confirmado com sucesso." : "");
+  const [popup, setPopup] = useState("");
   const [recuperacaoEmail, setRecuperacaoEmail] = useState(location.state?.emailPreenchido || "");
   const [popupRecuperacaoAberto, setPopupRecuperacaoAberto] = useState(false);
   const [popupRedefinicaoAberto, setPopupRedefinicaoAberto] = useState(deveAbrirRedefinicao);

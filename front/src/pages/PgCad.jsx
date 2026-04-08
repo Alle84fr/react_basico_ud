@@ -136,12 +136,17 @@ export default function PgCad() {
         return;
       }
 
+      const emailConfirmado = form.email;
       setPopupCodigoAberto(false);
+      setPopup("Cadastro confirmado com sucesso.");
       setForm(estadoInicial);
-      navigate("/logar", {
-        replace: true,
-        state: { cadastroConfirmado: true, emailPreenchido: form.email },
-      });
+
+      window.setTimeout(() => {
+        navigate("/logar", {
+          replace: true,
+          state: { cadastroConfirmado: true, emailPreenchido: emailConfirmado },
+        });
+      }, 850);
     } catch (_erro) {
       setPopup("500 - Erro interno");
     } finally {
