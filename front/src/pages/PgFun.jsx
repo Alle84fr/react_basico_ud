@@ -85,46 +85,45 @@ export default function PgFun() {
 
   return (
     <>
-      <main className="pgfun_screen">
-        <section className="pgfun_frame">
-          <h1 className="pgfun_title">Funcionarios</h1>
+      <main className="app_tela pgfun_tela">
+        <section className="app_moldura pgfun_moldura">
+          <section className="pgfun_frame">
+            <h1 className="pgfun_title">Lista Funcionários</h1>
 
-          <section className="pgfun_list_card">
-            {funcionarios.map((funcionario) => (
+            <img className="pgfun_top_image" src={imagemBase} alt="Ilustracao decorativa" />
+
+            <section className="pgfun_list_card">
+              {funcionarios.map((funcionario) => (
+                <button
+                  key={funcionario.id}
+                  type="button"
+                  className="pgfun_row"
+                  onClick={() => abrirFicha(funcionario)}
+                >
+                  <span className="pgfun_delete" onClick={(event) => excluir(event, funcionario)}>
+                    Del
+                  </span>
+                  <span className="pgfun_text">Função:</span>
+                  <span className="pgfun_text">Nome:</span>
+                  <span className="pgfun_value">{funcionario.funcao}</span>
+                  <span className="pgfun_value">{funcionario.nome}</span>
+                </button>
+              ))}
+            </section>
+
+            <section className="pgfun_bottom_actions">
               <button
-                key={funcionario.id}
                 type="button"
-                className="pgfun_row"
-                onClick={() => abrirFicha(funcionario)}
+                className="pgfun_bottom_link"
+                onClick={() => navigate("/adicionar-funcionario", { state: { usuario } })}
               >
-                <span className="pgfun_delete" onClick={(event) => excluir(event, funcionario)}>
-                  Del
-                </span>
-                <span className="pgfun_text">{funcionario.funcao}</span>
-                <span className="pgfun_text">{funcionario.nome}</span>
-                <img
-                  className="pgfun_avatar"
-                  src={funcionario.foto || fotoPadrao}
-                  alt={`Foto de ${funcionario.nome}`}
-                />
+                Add funcionário
               </button>
-            ))}
+              <button type="button" className="pgfun_bottom_link pgfun_bottom_link_secundario" onClick={sair}>
+                Voltar
+              </button>
+            </section>
           </section>
-
-          <section className="pgfun_bottom_card">
-            <button
-              type="button"
-              className="pgfun_bottom_link"
-              onClick={() => navigate("/adicionar-funcionario", { state: { usuario } })}
-            >
-              Adicionar funcionario
-            </button>
-            <button type="button" className="pgfun_bottom_link" onClick={sair}>
-              Sair
-            </button>
-          </section>
-
-          <img className="pgfun_bottom_image" src={imagemBase} alt="Ilustracao inferior" />
         </section>
       </main>
 
@@ -132,3 +131,4 @@ export default function PgFun() {
     </>
   );
 }
+

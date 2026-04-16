@@ -201,7 +201,7 @@ export default function PgLog() {
               <section className="log_card">
                 <label className="log_campo">
                   <span className="log_label">E-mail:</span>
-                  <input className="log_input" name="email" type="email" value={form.email} onChange={atualizarCampo} autoComplete="email" />
+                  <input className="log_input" name="email" type="email" value={form.email} onChange={atualizarCampo} autoComplete="username" />
                 </label>
 
                 <label className="log_campo">

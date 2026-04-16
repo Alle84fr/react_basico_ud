@@ -1,9 +1,9 @@
-.funform_screen {
+.aniform_screen {
   min-height: 100dvh;
   background: #eef2f1;
 }
 
-.funform_frame {
+.aniform_frame {
   position: relative;
   width: 100%;
   min-height: 100%;
@@ -13,7 +13,7 @@
   padding: 40px 0 40px;
 }
 
-.funform_title {
+.aniform_title {
   margin: 0;
   width: 100%;
   color: var(--cor_verde);
@@ -23,7 +23,7 @@
   text-align: center;
 }
 
-.funform_photo_box {
+.aniform_photo_box {
   width: 82px;
   height: 102px;
   margin-top: 18px;
@@ -35,17 +35,17 @@
   overflow: hidden;
 }
 
-.funform_photo_box input {
+.aniform_photo_box input {
   display: none;
 }
 
-.funform_photo_preview {
+.aniform_photo_preview {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.funform_photo_text {
+.aniform_photo_text {
   white-space: pre-line;
   color: #2e302d;
   font-size: 15px;
@@ -53,7 +53,7 @@
   text-align: center;
 }
 
-.funform_card {
+.aniform_card {
   width: 100%;
   max-width: 304px;
   margin-top: 31px;
@@ -66,7 +66,7 @@
   box-shadow: 6px 8px 8px rgba(0, 0, 0, 0.23);
 }
 
-.funform_field {
+.aniform_field {
   display: grid;
   gap: 8px;
   color: rgba(63, 64, 63, 0.82);
@@ -74,9 +74,8 @@
   line-height: 15px;
 }
 
-.funform_field input,
-.funform_field select,
-.funform_field textarea {
+.aniform_field input,
+.aniform_field textarea {
   width: 100%;
   border: 0;
   border-bottom: 1px solid #1f2937;
@@ -89,61 +88,115 @@
   appearance: none;
 }
 
-.funform_field textarea {
+.aniform_field textarea {
   min-height: 31px;
   line-height: 1.35;
   color: #374151;
 }
 
-.funform_field_password {
-  position: relative;
+.aniform_vacinas {
+  display: grid;
+  gap: 14px;
 }
 
-.funform_field_password input {
-  padding-right: 28px;
-}
-
-.funform_toggle_button {
-  position: absolute;
-  right: 2px;
-  bottom: 6px;
+.aniform_vacinas_link {
+  justify-self: start;
   border: 0;
   padding: 0;
   background: transparent;
+  color: var(--cor_vermelha);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: default;
+}
+
+.aniform_vacinas_lista {
+  display: grid;
+  gap: 16px;
+}
+
+.aniform_vacina_item {
+  display: grid;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(31, 41, 55, 0.32);
+}
+
+.aniform_vacina_item:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.aniform_vacina_linha {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.aniform_vacina_nome,
+.aniform_vacina_datas {
+  color: #3f403f;
+  font-size: 13px;
+}
+
+.aniform_vacina_nome {
+  font-weight: 600;
+}
+
+.aniform_vacina_acoes {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.aniform_vacina_alerta {
+  color: var(--cor_vermelha);
+  font-size: 13px;
+}
+
+.aniform_vacina_dose,
+.aniform_vacina_salvar {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--cor_verde);
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
 }
 
-.funform_toggle_button img {
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
+.aniform_vacina_formulario {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  align-items: end;
 }
 
-.funform_field input:focus,
-.funform_field select:focus,
-.funform_field textarea:focus {
+.aniform_vacina_campo {
+  display: grid;
+  gap: 6px;
+  color: rgba(63, 64, 63, 0.82);
+  font-size: 12px;
+}
+
+.aniform_vacina_campo input {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #1f2937;
+  padding: 0 0 6px;
+  background: transparent;
+  color: #111827;
+}
+
+.aniform_field input:focus,
+.aniform_field textarea:focus {
   outline: none;
   border-bottom-color: #374151;
 }
 
-.funform_field input:disabled,
-.funform_field select:disabled,
-.funform_field textarea:disabled {
-  color: #6b7280;
-  -webkit-text-fill-color: #6b7280;
-  opacity: 1;
-}
-
-.funform_field select {
-  background-image: linear-gradient(45deg, transparent 50%, #1f2937 50%),
-    linear-gradient(135deg, #1f2937 50%, transparent 50%);
-  background-position: calc(100% - 12px) calc(50% + 1px), calc(100% - 6px) calc(50% + 1px);
-  background-size: 6px 6px, 6px 6px;
-  background-repeat: no-repeat;
-  padding-right: 22px;
-}
-
-.funform_bottom_actions {
+.aniform_bottom_actions {
   position: relative;
   width: 100%;
   margin-top: 70px;
@@ -152,7 +205,7 @@
   gap: 14px;
 }
 
-.funform_action_button {
+.aniform_action_button {
   width: 100%;
   max-width: 135px;
   min-height: 48px;
@@ -172,16 +225,16 @@
   cursor: pointer;
 }
 
-.funform_action_button_editar {
+.aniform_action_button_editar {
   position: absolute;
   top: -44px;
 }
 
-.funform_action_button_secundario {
+.aniform_action_button_secundario {
   color: rgba(63, 64, 63, 0.72);
 }
 
-.funform_bottom_image {
+.aniform_bottom_image {
   position: absolute;
   bottom: 135px;
   left: 42%;
@@ -193,7 +246,7 @@
   filter: drop-shadow(3px 8px 4.5px rgba(0, 0, 0, 0.22));
 }
 
-.funform_bottom_actions > * {
+.aniform_bottom_actions > * {
   position: relative;
   z-index: 1;
 }

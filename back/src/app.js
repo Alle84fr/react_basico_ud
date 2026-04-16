@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
+import animalRoutes from "./routes/animalRoutes.js";
 import funcionarioRoutes from "./routes/funcionarioRoutes.js";
 import { env } from "./config/env.js";
 
@@ -26,6 +27,7 @@ export function createApp() {
   app.use(express.json({ limit: "10mb" }));
   app.use("/api", authRoutes);
   app.use("/api", funcionarioRoutes);
+  app.use("/api", animalRoutes);
 
   return app;
 }

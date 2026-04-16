@@ -19,10 +19,12 @@
 
 .cad_titulo {
   margin: 0;
+  width: 100%;
   color: var(--cor_verde);
   font-size: 30px;
   font-weight: 500;
   line-height: 1.1;
+  text-align: center;
 }
 
 .cad_card_box {
@@ -60,13 +62,13 @@
 
 .cad_campo {
   display: grid;
-  gap: 7px;
+  gap: 8px;
 }
 
 .cad_label {
   color: rgba(63, 64, 63, 0.72);
   font-size: 12px;
-  line-height: 1.1;
+  line-height: 15px;
   font-weight: 600;
 }
 
@@ -74,7 +76,7 @@
 .cad_select {
   width: 100%;
   min-height: 29px;
-  padding: 3px 12px;
+  padding: 0 12px 8px;
   border: 1px solid rgba(249, 249, 249, 0.98);
   border-radius: 11px;
   background: linear-gradient(180deg, rgba(255, 252, 252, 0.99) 0%, rgba(248, 244, 244, 0.98) 100%);
@@ -84,7 +86,7 @@
     0 1px 1px rgba(255, 255, 255, 0.85);
   color: rgba(63, 64, 63, 0.9);
   font-size: 14px;
-  line-height: 1.2;
+  line-height: 15px;
 }
 
 .cad_input:focus,

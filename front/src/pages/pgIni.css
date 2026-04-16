@@ -21,7 +21,7 @@
   max-width: calc(100% - 10px);
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.24));
+  filter: drop-shadow(0 6px 6px rgba(219, 44, 44, 0.24));
 }
 
 .ini_aviso {

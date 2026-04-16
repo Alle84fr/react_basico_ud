@@ -1,6 +1,8 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import imagemBase from "../imgs/5_lateral_outros.png";
 import fotoPadrao from "../imgs/2_rosto_vaca.png";
+import iconeSenhaMostrar from "../imgs/senha_mostrar.png";
+import iconeSenhaOculta from "../imgs/senha_oculta.png";
 import AppPopup from "./AppPopup";
 import "./funcionarioForm.css";
 
@@ -38,6 +40,7 @@ export default function FuncionarioForm({
   onSucesso,
   onVoltar,
 }) {
+  const inputFotoRef = useRef(null);
   const [form, setForm] = useState(() => ({
     ...estadoInicial,
     ...(funcionarioInicial || {}),
@@ -51,8 +54,10 @@ export default function FuncionarioForm({
 
   const cargoAtual = String(usuario?.cargo || "").toLowerCase();
   const podeEditarGerencial = cargoAtual === "dono" || cargoAtual === "gerente";
-  const tituloBotao = modo === "adicionar" ? "Adicionar" : "Atualizar";
+  const tituloBotao = modo === "adicionar" ? "Salvar" : "Salvar";
   const fotoPreview = form.foto || fotoPadrao;
+  const tituloTela = modo === "adicionar" ? "Add Funcionário" : form.nome || "Nome funcionário";
+  const textoFoto = modo === "adicionar" ? "carregar\nfoto" : "";
 
   const camposDesabilitados = useMemo(
     () => ({
@@ -156,15 +161,18 @@ export default function FuncionarioForm({
     <>
       <main className="funform_screen">
         <section className="funform_frame">
-          <h1 className="funform_title">{modo === "adicionar" ? "Adicionar funcionario" : "Ficha funcionario"}</h1>
+          <h1 className="funform_title">{tituloTela}</h1>
+
+          <button type="button" className="funform_photo_box" onClick={() => inputFotoRef.current?.click()}>
+            {form.foto ? (
+              <img className="funform_photo_preview" src={fotoPreview} alt="Foto do funcionario" />
+            ) : (
+              <span className="funform_photo_text">{textoFoto}</span>
+            )}
+            <input ref={inputFotoRef} type="file" accept="image/*" onChange={lerArquivo} />
+          </button>
 
           <section className="funform_card">
-            <label className="funform_photo_box">
-              <img className="funform_photo_preview" src={fotoPreview} alt="Foto do funcionario" />
-              <input type="file" accept="image/*" onChange={lerArquivo} />
-            </label>
-            <p className="funform_photo_hint">Clique no local da foto para fazer upload</p>
-
             {modo === "ficha" && (
               <label className="funform_field">
                 <span>ID:</span>
@@ -174,7 +182,7 @@ export default function FuncionarioForm({
 
             <label className="funform_field">
               <span>Nome:</span>
-              <input name="nome" value={form.nome} onChange={atualizarCampo} />
+              <input name="nome" value={form.nome} onChange={atualizarCampo} autoComplete="name" />
             </label>
 
             <label className="funform_field">
@@ -193,7 +201,7 @@ export default function FuncionarioForm({
             </label>
 
             <label className="funform_field">
-              <span>Data de admissao:</span>
+              <span>Data Admissão:</span>
               <input
                 name="dataAdmissao"
                 type="date"
@@ -214,7 +222,7 @@ export default function FuncionarioForm({
             </label>
 
             <label className="funform_field">
-              <span>Data nascimento:</span>
+              <span>Data Nascimento:</span>
               <input
                 name="dataAniversario"
                 type="date"
@@ -224,19 +232,21 @@ export default function FuncionarioForm({
             </label>
 
             <label className="funform_field funform_field_password">
-              <span>Senha:</span>
+              <span>Senha Funcionário:</span>
               <input
                 name="senha"
                 type={mostrarSenha ? "text" : "password"}
                 value={form.senha}
                 onChange={atualizarCampo}
+                autoComplete={modo === "adicionar" ? "new-password" : "current-password"}
               />
               <button
                 type="button"
                 className="funform_toggle_button"
                 onClick={() => setMostrarSenha((atual) => !atual)}
+                aria-label={mostrarSenha ? "Ocultar senha" : "Mostrar senha"}
               >
-                {mostrarSenha ? "Ocultar senha" : "Ver senha"}
+                <img src={mostrarSenha ? iconeSenhaMostrar : iconeSenhaOculta} alt="" aria-hidden="true" />
               </button>
             </label>
 
@@ -253,13 +263,22 @@ export default function FuncionarioForm({
 
           <section className="funform_bottom_actions">
             <button type="button" className="funform_action_button" onClick={clicarBotaoPrincipal} disabled={salvando}>
-              {salvando ? "Salvando..." : tituloBotao}
+              {salvando ? "Salvando..." : modo === "ficha" ? "Salvar" : "Salvar"}
             </button>
-            <button type="button" className="funform_action_button" onClick={onVoltar}>
+            {modo === "ficha" ? (
+              <button
+                type="button"
+                className="funform_action_button funform_action_button_editar"
+                onClick={clicarBotaoPrincipal}
+                disabled={salvando || !podeEditarGerencial}
+              >
+                Editar
+              </button>
+            ) : null}
+            <button type="button" className="funform_action_button funform_action_button_secundario" onClick={onVoltar}>
               Voltar
             </button>
           </section>
-
           <img className="funform_bottom_image" src={imagemBase} alt="Ilustracao inferior" />
         </section>
       </main>

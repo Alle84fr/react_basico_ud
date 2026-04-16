@@ -72,3 +72,27 @@ CREATE TABLE dbo.funcionarios (
     CONSTRAINT DF_funcionarios_atualizado_em DEFAULT SYSUTCDATETIME()
 );
 GO
+
+IF OBJECT_ID('dbo.animais', 'U') IS NOT NULL
+  DROP TABLE dbo.animais;
+GO
+
+CREATE TABLE dbo.animais (
+  id_animal NVARCHAR(4) NOT NULL
+    CONSTRAINT PK_animais PRIMARY KEY,
+  nome_animal NVARCHAR(120) NOT NULL,
+  raca NVARCHAR(120) NULL,
+  funcao NVARCHAR(120) NULL,
+  data_nascimento DATE NULL,
+  data_aquisicao DATE NULL,
+  peso DECIMAL(10,2) NULL,
+  cuidador NVARCHAR(120) NULL,
+  observacao NVARCHAR(500) NULL,
+  vacinas NVARCHAR(MAX) NULL,
+  foto_base64 NVARCHAR(MAX) NULL,
+  criado_em DATETIME2(0) NOT NULL
+    CONSTRAINT DF_animais_criado_em DEFAULT SYSUTCDATETIME(),
+  atualizado_em DATETIME2(0) NOT NULL
+    CONSTRAINT DF_animais_atualizado_em DEFAULT SYSUTCDATETIME()
+);
+GO

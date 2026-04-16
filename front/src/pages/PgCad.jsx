@@ -144,7 +144,7 @@ export default function PgCad() {
       window.setTimeout(() => {
         navigate("/logar", {
           replace: true,
-          state: { cadastroConfirmado: true, emailPreenchido: emailConfirmado },
+          state: { cadastroConfirmado: true },
         });
       }, 850);
     } catch (_erro) {
@@ -205,7 +205,7 @@ export default function PgCad() {
                     type="email"
                     value={form.email}
                     onChange={atualizarCampo}
-                    autoComplete="email"
+                    autoComplete="username"
                   />
                 </label>
 

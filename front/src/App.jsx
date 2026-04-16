@@ -1,6 +1,9 @@
 import PgAddFun from "./pages/PgAddFun";
 import { Route, Routes } from "react-router-dom";
+import PgAddAni from "./pages/PgAddAni";
+import PgAni from "./pages/PgAni";
 import PgFichaFun from "./pages/PgFichaFun";
+import PgFichaAni from "./pages/PgFichaAni";
 import PgFun from "./pages/PgFun";
 import PgCad from "./pages/PgCad";
 import PgHome from "./pages/PgHome";
@@ -57,10 +60,11 @@ export default function App() {
       <Route path="/logar" element={<PgLog />} />
       <Route path="/home" element={<PgHome />} />
       <Route path="/adicionar-funcionario" element={<PgAddFun />} />
-      <Route path="/adicionar-animal" element={<PgEmConstrucao titulo="Adicionar animal" />} />
+      <Route path="/adicionar-animal" element={<PgAddAni />} />
       <Route path="/lista-funcionarios" element={<PgFun />} />
       <Route path="/ficha-funcionario/:id" element={<PgFichaFun />} />
-      <Route path="/lista-animal" element={<PgEmConstrucao titulo="Lista animal" />} />
+      <Route path="/lista-animal" element={<PgAni />} />
+      <Route path="/ficha-animal/:id" element={<PgFichaAni />} />
       <Route path="/deve" element={<PgEmConstrucao titulo="Deve" />} />
       <Route path="/guia-app" element={<PgEmConstrucao titulo="Guia do app" />} />
       <Route path="*" element={<PgNaoEncontrada />} />
