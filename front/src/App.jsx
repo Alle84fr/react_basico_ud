@@ -10,6 +10,9 @@ import PgHome from "./pages/PgHome";
 import PgIni from "./pages/PgIni";
 import PgLog from "./pages/PgLog";
 import PgSplash from "./pages/PgSplash";
+import PgGuia from "./pages/PgGuia";
+import PgDeve from "./pages/PgDeve";
+import PgDevIni from "./pages/PgDevIni";
 
 function PgNaoEncontrada() {
   return (
@@ -65,8 +68,9 @@ export default function App() {
       <Route path="/ficha-funcionario/:id" element={<PgFichaFun />} />
       <Route path="/lista-animal" element={<PgAni />} />
       <Route path="/ficha-animal/:id" element={<PgFichaAni />} />
-      <Route path="/deve" element={<PgEmConstrucao titulo="Deve" />} />
-      <Route path="/guia-app" element={<PgEmConstrucao titulo="Guia do app" />} />
+      <Route path="/deve" element={<PgDevIni />} />
+      <Route path="/deve-logado" element={<PgDeve />} />
+      <Route path="/guia-app" element={<PgGuia />} />
       <Route path="*" element={<PgNaoEncontrada />} />
     </Routes>
   );

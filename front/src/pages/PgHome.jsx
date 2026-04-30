@@ -47,7 +47,7 @@ export default function PgHome() {
             <button type="button" className="home_card_link home_card_link_sair" onClick={sair}>
               Sair
             </button>
-            <Link className="home_card_link" to="/deve">
+            <Link className="home_card_link" to="/deve-logado" state={{ usuario: location.state?.usuario }}>
               Deve
             </Link>
             <Link className="home_card_link" to="/guia-app">

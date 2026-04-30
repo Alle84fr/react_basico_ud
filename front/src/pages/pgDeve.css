@@ -1,0 +1,119 @@
+.deve_tela {
+  background: #eef2f1;
+}
+
+.deve_moldura {
+  display: grid;
+  place-items: stretch;
+  overflow-y: auto;
+}
+
+.deve_frame {
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  padding: 45px 0 40px;
+}
+
+.deve_title {
+  margin: 0;
+  width: 100%;
+  color: var(--cor_verde);
+  font-size: 31px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.deve_card {
+  width: calc(100% - 40px);
+  max-width: 312px;
+  min-height: 505px;
+  margin-top: 47px;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  padding: 51px 23px 25px;
+  background: rgba(247, 250, 248, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 24px;
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.2);
+}
+
+.deve_photo_wrap {
+  position: relative;
+  width: 124px;
+  height: 177px;
+  margin-left: 18px;
+}
+
+.deve_photo_wrap::before {
+  content: "";
+  position: absolute;
+  top: -19px;
+  left: -43px;
+  width: 90px;
+  height: 61px;
+  background-image: url("../imgs/2_rosto_vaca.png");
+  background-size: 280px auto;
+  background-position: 99% 18%;
+  transform: rotate(-8deg);
+  filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.18));
+  z-index: 0;
+}
+
+.deve_photo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: 88% 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.28);
+}
+
+.deve_bio {
+  width: 100%;
+  margin: 24px 0 0;
+  color: #303530;
+  font-size: 14px;
+  line-height: 1.23;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.deve_actions {
+  width: 100%;
+  margin-top: 47px;
+  display: grid;
+  justify-items: center;
+}
+
+.deve_button {
+  width: 100%;
+  max-width: 131px;
+  min-height: 49px;
+  display: grid;
+  place-items: center;
+  padding: 11px 18px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  background: #407933;
+  box-shadow: 3px 8px 4.5px rgba(0, 0, 0, 0.24);
+  color: #f7faf8;
+  text-decoration: none;
+  text-align: center;
+  font-size: 21px;
+  line-height: 1.1;
+  font-weight: 400;
+}
+
+.deve_button:hover,
+.deve_button:focus-visible {
+  outline: none;
+  transform: translateY(-1px);
+}

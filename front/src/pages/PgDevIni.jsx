@@ -1,11 +1,8 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import fotoDeve from "../imgs/7_eu_vaca.jpg";
 import "./pgDeve.css";
 
-export default function PgDeve() {
-  const location = useLocation();
-  const usuario = location.state?.usuario || null;
-
+export default function PgDevIni() {
   return (
     <main className="app_tela deve_tela">
       <section className="app_moldura deve_moldura">
@@ -27,8 +24,8 @@ export default function PgDeve() {
             </p>
           </section>
 
-          <nav className="deve_actions" aria-label="Navegacao da pagina dev logada">
-            <Link className="deve_button" to="/home" state={{ usuario }}>
+          <nav className="deve_actions" aria-label="Navegacao da pagina dev inicial">
+            <Link className="deve_button" to="/inicial">
               Voltar
             </Link>
           </nav>
