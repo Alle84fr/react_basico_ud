@@ -1,0 +1,117 @@
+.splash_tela {
+  background: #eef2f1;
+}
+
+.splash_moldura {
+  display: grid;
+  place-items: stretch;
+}
+
+.splash_cls {
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  padding: 245px 0 0;
+}
+
+.splash_vaca_area {
+  position: relative;
+  width: 100%;
+  display: grid;
+  justify-items: center;
+}
+
+.splash_gif {
+  width: 158px;
+  height: 225px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.18));
+}
+
+.splash_card {
+  width: 100%;
+  max-width: 330px;
+  min-height: 40px;
+  margin-top: 9px;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 4px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(244, 245, 243, 0.98) 0%, rgba(235, 238, 234, 0.94) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.96);
+  box-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.9),
+    0 10px 18px rgba(0, 0, 0, 0.18),
+    0 3px 6px rgba(255, 255, 255, 0.72);
+}
+
+.splash_text,
+.splash_http {
+  margin: 0;
+  color: #545853;
+  text-align: center;
+}
+
+.splash_text {
+  font-size: 18px;
+  line-height: 1.05;
+  font-weight: 600;
+}
+
+.splash_http {
+  color: var(--cor_vermelha);
+  font-size: 13px;
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+.splash_pontos {
+  width: 30px;
+  height: 6px;
+  display: inline-block;
+  border-radius: 999px;
+  background: radial-gradient(circle, #8d938b 0 28%, transparent 31%) left center / 10px 6px repeat-x;
+  animation: splash_pulso 1.1s ease-in-out infinite;
+}
+
+@keyframes splash_pulso {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(1px);
+  }
+}
+
+@media (min-width: 768px) {
+  .splash_cls {
+    padding-top: 24%;
+  }
+
+  .splash_gif {
+    width: clamp(158px, 28%, 210px);
+    height: auto;
+  }
+
+  .splash_card {
+    max-width: min(92%, 420px);
+    min-height: 48px;
+    margin-top: 12px;
+  }
+
+  .splash_text {
+    font-size: clamp(18px, 2vw, 22px);
+  }
+
+  .splash_http {
+    font-size: clamp(13px, 1.2vw, 16px);
+  }
+}

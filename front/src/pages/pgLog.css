@@ -1,0 +1,269 @@
+.log_tela {
+  background: #eef2f1;
+}
+
+.log_moldura {
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+}
+
+.log_cls {
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  padding: 47px 0 48px;
+}
+
+.log_titulo {
+  margin: 0;
+  width: 100%;
+  color: var(--cor_verde);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.log_card_box {
+  position: relative;
+  width: 100%;
+  margin-top: 165px;
+  display: grid;
+  justify-items: center;
+}
+
+.log_img {
+  position: absolute;
+  top: -102px;
+  right: 18px;
+  width: 127px;
+  opacity: 0.98;
+  transform: rotate(155deg);
+  filter: drop-shadow(3px 8px 4.5px rgba(0, 0, 0, 0.29));
+  pointer-events: none;
+}
+
+.log_card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 252px;
+  display: grid;
+  gap: 24px;
+  padding: 41px 16px 34px;
+  background: linear-gradient(180deg, rgba(241, 245, 242, 0.98) 0%, rgba(235, 241, 238, 0.96) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  border-radius: 24px;
+  box-shadow: 6px 8px 8px rgba(0, 0, 0, 0.23);
+}
+
+.log_campo {
+  display: grid;
+  gap: 8px;
+}
+
+.log_label {
+  color: rgba(63, 64, 63, 0.72);
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 600;
+}
+
+.log_input,
+.log_popup_input {
+  width: 100%;
+  min-height: 29px;
+  padding: 0 12px 8px;
+  border: 1px solid rgba(249, 249, 249, 0.98);
+  border-radius: 11px;
+  background: linear-gradient(180deg, rgba(255, 252, 252, 0.99) 0%, rgba(248, 244, 244, 0.98) 100%);
+  box-shadow:
+    0 -1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 5px rgba(0, 0, 0, 0.24),
+    0 1px 1px rgba(255, 255, 255, 0.85);
+  color: rgba(63, 64, 63, 0.9);
+  font-size: 14px;
+  line-height: 15px;
+}
+
+.log_input:focus,
+.log_popup_input:focus {
+  outline: 2px solid rgba(64, 121, 51, 0.2);
+  border-color: rgba(64, 121, 51, 0.35);
+}
+
+.log_senha_box,
+.log_popup_senha_box {
+  position: relative;
+  display: block;
+}
+
+.log_input_senha,
+.log_popup_input_senha {
+  padding-right: 38px;
+}
+
+.log_senha_btn,
+.log_popup_senha_btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.log_senha_btn img,
+.log_popup_senha_btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.log_btn {
+  width: 100%;
+  max-width: 238px;
+  min-height: 48px;
+  display: grid;
+  place-items: center;
+  margin-top: 113px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  box-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.9),
+    0 10px 18px rgba(0, 0, 0, 0.18),
+    0 3px 6px rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 1.1;
+  font-weight: 500;
+  transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out;
+}
+
+.log_btn:hover,
+.log_btn:focus-visible,
+.log_link_texto:hover,
+.log_link_texto:focus-visible {
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.log_btn_principal {
+  border: 0;
+  background: #407933;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.log_btn_principal:disabled,
+.log_popup_btn_principal:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.log_btn_secundario {
+  margin-top: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.96);
+  background: linear-gradient(180deg, rgba(244, 245, 243, 0.98) 0%, rgba(235, 238, 234, 0.94) 100%);
+  color: rgba(63, 64, 63, 0.72);
+}
+
+.log_link_texto {
+  margin-top: 24px;
+  border: 0;
+  background: transparent;
+  color: rgba(63, 64, 63, 0.68);
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.log_popup_corpo {
+  display: grid;
+  gap: 16px;
+}
+
+.log_popup_texto {
+  margin: 0;
+  color: rgba(63, 64, 63, 0.86);
+  line-height: 1.45;
+}
+
+.log_popup_input {
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.log_popup_input_readonly {
+  color: rgba(63, 64, 63, 0.56);
+}
+
+.log_popup_btn_principal {
+  width: 100%;
+  min-height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: #407933;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .log_cls {
+    padding: 47px 0 48px;
+  }
+
+  .log_titulo {
+    font-size: 30px;
+  }
+
+  .log_card_box {
+    margin-top: 165px;
+  }
+
+  .log_img {
+    right: 18px;
+    top: -102px;
+    width: 127px;
+  }
+
+  .log_card {
+    max-width: 252px;
+    gap: 24px;
+    padding: 41px 16px 34px;
+    border-radius: 24px;
+  }
+
+  .log_label {
+    font-size: 12px;
+  }
+
+  .log_input,
+  .log_popup_input {
+    min-height: 29px;
+    font-size: 14px;
+    border-radius: 11px;
+  }
+
+  .log_btn {
+    max-width: 238px;
+    min-height: 48px;
+    font-size: 16px;
+  }
+
+  .log_link_texto {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,123 @@
+.home_tela {
+  background: #eef2f1;
+}
+
+.home_moldura {
+  display: grid;
+  place-items: stretch;
+  overflow-y: auto;
+}
+
+.home_frame {
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  padding: 43px 0 40px;
+}
+
+.home_title {
+  margin: 0;
+  width: 100%;
+  color: var(--cor_verde);
+  font-size: 29px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.home_panel {
+  width: 100%;
+  max-width: 312px;
+  margin-top: 45px;
+  padding: 44px 0 42px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(241, 245, 242, 0.98) 0%, rgba(235, 241, 238, 0.96) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 6px 8px 8px rgba(0, 0, 0, 0.23);
+}
+
+.home_menu {
+  display: grid;
+  justify-items: center;
+  gap: 30px;
+}
+
+.home_menu_link,
+.home_card_link {
+  width: 100%;
+  max-width: 241px;
+  min-height: 48px;
+  display: grid;
+  place-items: center;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(244, 245, 243, 0.98) 0%, rgba(235, 238, 234, 0.94) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.96);
+  box-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.9),
+    0 10px 18px rgba(0, 0, 0, 0.18),
+    0 3px 6px rgba(255, 255, 255, 0.72);
+  color: var(--cor_verde);
+  text-decoration: none;
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.1;
+  font-weight: 500;
+}
+
+.home_bottom_area {
+  position: relative;
+  width: 100%;
+  margin-top: 42px;
+  display: grid;
+  justify-items: center;
+}
+
+.home_bottom_image {
+  position: absolute;
+  z-index: 0;
+  top: -8px;
+  width: 114px;
+  right: 100px;
+  transform: rotate(-3deg);
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(3px 8px 4.5px rgba(0, 0, 0, 0.22));
+}
+
+.home_card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding-top: 24px;
+}
+
+.home_card_link {
+  max-width: 129px;
+  border: 0;
+  cursor: pointer;
+  color: rgba(63, 64, 63, 0.72);
+}
+
+.home_card_link_sair {
+  color: #ff6d4d;
+}
+
+.home_card_link:hover,
+.home_card_link:focus-visible,
+.home_menu_link:hover,
+.home_menu_link:focus-visible {
+  transform: translateY(-1px);
+  outline: none;
+}
+
+@media (min-width: 768px) {
+  .home_frame {
+    padding: 43px 0 40px;
+  }
+}
