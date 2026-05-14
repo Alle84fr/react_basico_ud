@@ -17,10 +17,10 @@ export default function PgDevIni() {
             <p className="deve_bio">
               Alessandra FR .<br />
               Moradora da capital da garota (SP)<br />
-              Forma em Design de Moda pelo Senac, j&aacute; cursou<br />
+              Forma em Design de Moda pelo Senac, já cursou<br />
               Design de Games na escola Saga.<br />
-              Cursando An&aacute;lise e Desenvolvimento de Sistemas pela faculdade Impacta, resolveu criar este app para que pessoas donas de vaquinhas possam ter na palma de sua m&atilde;o o controle de seu gado.<br />
-              Simples, r&aacute;pido para qualquer pessoa usar.
+              Cursando Análise e Desenvolvimento de Sistemas pela faculdade Impacta, resolveu criar este app para que pessoas donas de vaquinhas possam ter na palma de sua mão o controle de seu gado.<br />
+              Simples, rápido para qualquer pessoa usar.
             </p>
           </section>
 
