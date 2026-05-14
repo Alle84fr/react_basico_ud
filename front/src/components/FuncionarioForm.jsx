@@ -262,9 +262,6 @@ export default function FuncionarioForm({
           </section>
 
           <section className="funform_bottom_actions">
-            <button type="button" className="funform_action_button" onClick={clicarBotaoPrincipal} disabled={salvando}>
-              {salvando ? "Salvando..." : modo === "ficha" ? "Salvar" : "Salvar"}
-            </button>
             {modo === "ficha" ? (
               <button
                 type="button"
@@ -275,6 +272,9 @@ export default function FuncionarioForm({
                 Editar
               </button>
             ) : null}
+            <button type="button" className="funform_action_button" onClick={clicarBotaoPrincipal} disabled={salvando}>
+              {salvando ? "Salvando..." : "Salvar"}
+            </button>
             <button type="button" className="funform_action_button funform_action_button_secundario" onClick={onVoltar}>
               Voltar
             </button>

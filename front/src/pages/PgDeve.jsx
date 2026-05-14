@@ -22,7 +22,10 @@ export default function PgDeve() {
               Moradora da capital da garota (SP)<br />
               Forma em Design de Moda pelo Senac, j&aacute; cursou<br />
               Design de Games na escola Saga.<br />
-              Cursando An&aacute;lise e Desenvolvimento de Sistemas pela faculdade Impacta, resolveu criar este app para que pessoas donas de vaquinhas possam ter na palma de sua m&atilde;o o controle de seu gado.<br />
+              <br />
+              Cursando An&aacute;lise e Desenvolvimento de Sistemas pela faculdade Impacta.<br />
+              Fundadora da AFR8799, micro empresa que trabalha com front e back end. <br />
+              Resolveu criar este app para que pessoas donas de vaquinhas possam ter na palma de sua m&atilde;o o controle de seu gado.<br />
               Simples, r&aacute;pido para qualquer pessoa usar.
             </p>
           </section>
